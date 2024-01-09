@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -97,8 +95,17 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
+        
         $validated = $request->validate(['name' => ['required', 'min:3']]);
         $user->update($validated);
         return to_route('admin.users.index')->with('message', 'Role Updated successfully');
     }
+
+    public function updateDetails($id, Request $request)
+    {
+        $user = User::find($id);
+        $user->update($request->all());
+        return to_route('admin.users.index')->with('message', 'User Updated successfully');
+    }
+
 }

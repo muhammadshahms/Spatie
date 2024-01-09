@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\User;    
+use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 // Home
@@ -18,7 +19,7 @@ Breadcrumbs::for('users', function (BreadcrumbTrail $trail): void {
 });
 
 // users>create
-Breadcrumbs::for('create', function (BreadcrumbTrail $trail ): void {
+Breadcrumbs::for('create', function (BreadcrumbTrail $trail): void {
     $trail->parent('users');
     $trail->push('Create', route('admin.users.create'));
 });
@@ -33,28 +34,33 @@ Breadcrumbs::for('roles', function (BreadcrumbTrail $trail, User $user): void {
 // roles
 Breadcrumbs::for('admin.roles.index', function (BreadcrumbTrail $trail): void {
     $trail->parent('home');
-    $trail->push('Roles',route('admin.roles.index'));
+    $trail->push('Roles', route('admin.roles.index'));
 });
 
 // roles>create
-Breadcrumbs::for('admin.roles.create', function (BreadcrumbTrail $trail ): void {
+Breadcrumbs::for('admin.roles.create', function (BreadcrumbTrail $trail): void {
     $trail->parent('admin.roles.index');
     $trail->push('Create', route('admin.roles.create'));
 });
-Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $role ): void {
+Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $role): void {
     $trail->parent('admin.roles.index');
-    $trail->push( $role->name , route('admin.roles.edit', $role));
+    $trail->push($role->name, route('admin.roles.edit', $role));
 });
 
 // permissions
-// Breadcrumbs::for('permissions', function (BreadcrumbTrail $trail): void {
-//     $trail->parent('home');
-//     $trail->push('Permissions', route('admin.permissions.index'));
-// });
+Breadcrumbs::for('admin.permissions.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('home');
+    $trail->push('Permissions', route('admin.permissions.index'));
+});
 
-// // permissions>create
-// Breadcrumbs::for('create', function (BreadcrumbTrail $trail ): void {
-//     $trail->parent('permissions');
-//     $trail->push('Create', route('admin.permissions.create'));
-// });
+// permissions>create
+Breadcrumbs::for('admin.permissions.create', function (BreadcrumbTrail $trail): void {
+    $trail->parent('admin.permissions.index');
+    $trail->push('Create', route('admin.permissions.create'));
+});
 
+// permissions>edit
+Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Permission $permission): void {
+    $trail->parent('admin.permissions.index');
+    $trail->push('Create', route('admin.permissions.edit', $permission));
+});
