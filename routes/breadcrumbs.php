@@ -62,5 +62,7 @@ Breadcrumbs::for('admin.permissions.create', function (BreadcrumbTrail $trail): 
 // permissions>edit
 Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Permission $permission): void {
     $trail->parent('admin.permissions.index');
-    $trail->push('Create', route('admin.permissions.edit', $permission));
+    $trail->push($permission->name, route('admin.permissions.edit', $permission));
+   
+    
 });

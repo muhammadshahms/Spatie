@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div class="py-5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="ml-6">
                 <h1>{{ __('Dashboard') }}</h1>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 bg-white border-b border-gray-200">

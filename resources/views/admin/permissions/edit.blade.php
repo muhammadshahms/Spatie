@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="mb-4 text-sm">
-                        {{ Breadcrumbs::render('admin.permissions.create') }}
+                        {{ Breadcrumbs::render('admin.permissions.edit', $permission) }}
                     </div>
                     <div class="flex justify-between">
                         <h1 class="text-2xl font-weight-400">Edit Permission</h1>

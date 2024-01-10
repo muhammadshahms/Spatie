@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
+use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,10 +92,12 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
+
         return view('admin.users.role', compact('user', 'roles', 'permissions'));
     }
     public function update(Request $request, User $user)
     {
+
         
         $validated = $request->validate(['name' => ['required', 'min:3']]);
         $user->update($validated);
@@ -103,6 +106,8 @@ class UserController extends Controller
 
     public function updateDetails($id, Request $request)
     {
+        event(new UserRegistration($request->name));
+        // dd($request->name);
         $user = User::find($id);
         $user->update($request->all());
         return to_route('admin.users.index')->with('message', 'User Updated successfully');

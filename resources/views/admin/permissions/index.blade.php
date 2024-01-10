@@ -4,10 +4,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="mb-4 text-sm">
-                        {{ Breadcrumbs::render('users') }}
+                        {{ Breadcrumbs::render('admin.permissions.index') }}
                     </div>
                     <div class="flex justify-between">
-
                         <h1 class="text-2xl font-weight-400">Permission</h1>
                         <a href="{{ route('admin.permissions.create') }}" class="px-4 py-2 bg-green-700 hover:bg-green-500 rounded-md">Create Permission</a>
                     </div>
