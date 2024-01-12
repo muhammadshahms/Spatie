@@ -89,6 +89,7 @@ class UserController extends Controller
             return back()->with('message', 'you are admin.');
         }
         $user->delete();
+        event(new UserRegistration($user->name));
         return back()->with('message', 'User deleted.');
     }
     public function edit(User $user)
@@ -109,7 +110,8 @@ class UserController extends Controller
         // dd($request->name);
         $user = User::find($id);
         $user->update($request->all());
-        return to_route('admin.users.index', event(new UserRegistration($request->name)));
+        event(new UserRegistration($request->name));
+        return to_route('admin.users.index');
         // ->with('message', 'User Updated successfully');
     }
 }
