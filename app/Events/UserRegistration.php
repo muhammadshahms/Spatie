@@ -29,6 +29,7 @@ class UserRegistration implements ShouldBroadcast
      * @return \Illuminate\Broadcasting\Channel|array
      */
 
+
     /**
      *Event broadcasting
      */
