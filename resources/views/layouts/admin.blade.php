@@ -21,18 +21,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script>
+
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('5d47f849d3f0ada90317', {
+        let pusher = new Pusher('5d47f849d3f0ada90317', {
             cluster: 'ap1'
         });
 
-        var channel = pusher.subscribe('popup-channel');
+        let channel = pusher.subscribe('popup-channel');
         channel.bind('user-edit', function(data) {
-            toastr.success(JSON.stringify(data.name).split('"') + ' ' + 'updated successfully');
-            // alert();
+            toastr.success(JSON.stringify(data.name) + ' ' + 'updated successfully');
         });
     </script>
 </head>
