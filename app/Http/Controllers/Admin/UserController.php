@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -11,7 +13,7 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     public function index()
-    {   
+    {
 
         $users = User::all();
         return view('admin.users.index', compact('users'));
@@ -24,17 +26,19 @@ class UserController extends Controller
 
         return view('admin.users.role', compact('user', 'roles', 'permissions'));
     }
-    public function create(){
+    public function create()
+    {
         $roles = Role::all();
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            
+
         ]);
         $user->assignRole($request->input('role'));
         return to_route('admin.users.index')->with('message', 'User created successfully');
@@ -85,20 +89,16 @@ class UserController extends Controller
             return back()->with('message', 'you are admin.');
         }
         $user->delete();
-
         return back()->with('message', 'User deleted.');
     }
     public function edit(User $user)
     {
         $roles = Role::all();
         $permissions = Permission::all();
-
         return view('admin.users.role', compact('user', 'roles', 'permissions'));
     }
     public function update(Request $request, User $user)
     {
-
-        
         $validated = $request->validate(['name' => ['required', 'min:3']]);
         $user->update($validated);
         return to_route('admin.users.index')->with('message', 'Role Updated successfully');
@@ -106,11 +106,10 @@ class UserController extends Controller
 
     public function updateDetails($id, Request $request)
     {
-        event(new UserRegistration($request->name));
         // dd($request->name);
         $user = User::find($id);
         $user->update($request->all());
-        return to_route('admin.users.index')->with('message', 'User Updated successfully');
+        return to_route('admin.users.index', event(new UserRegistration($request->name)));
+        // ->with('message', 'User Updated successfully');
     }
-
 }

@@ -31,15 +31,15 @@ class UserRegistration implements ShouldBroadcast
      * @return \Illuminate\Broadcasting\Channel|array
      */
 
-     /**
-      *Event broadcasting
-      */
+    /**
+     *Event broadcasting
+     */
     public function broadcastOn()
     {
         return new Channel('popup-channel');
     }
     public function broadcastAs()
     {
-        return 'user-registration';
+        return 'user-edit';
     }
 }
