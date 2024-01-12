@@ -26,6 +26,13 @@ class UserController extends Controller
 
         return view('admin.users.role', compact('user', 'roles', 'permissions'));
     }
+    public function showModal(User $user)
+    {
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('admin.users.show', compact('user', 'roles', 'permissions'));
+    }
     public function create()
     {
         $roles = Role::all();
