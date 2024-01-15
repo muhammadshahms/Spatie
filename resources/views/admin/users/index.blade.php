@@ -62,10 +62,27 @@
                                                     <div class="flex justify-end">
                                                         <div class="flex space-x-2">
                                                             <x-modal>
-                                                                <!-- Your modal content goes here -->
-                                                                
-                                                            </x-modal>
+                                                                <div>
+                                                                    <div>
+                                                                        <label for="">name: </label>
+                                                                        <input type="text"
+                                                                            value="{{ $user->name }}" readonly>
 
+                                                                    </div>
+                                                                    <div>
+                                                                        <label for="">email: </label>
+                                                                        <input type="text"
+                                                                            value="{{ $user->email }}" readonly>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label for="">roles: </label>
+                                                                        <input type="text"
+                                                                            value="{{ $user->roles->pluck('name')->implode(' ') }}"
+                                                                            readonly>
+
+                                                                    </div>
+                                                                </div>
+                                                            </x-modal>
 
                                                             <a href="{{ route('admin.users.show', $user->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">Edit</a>
