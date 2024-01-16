@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
         Blade::component('modal', \App\View\Components\Modal::class);
     }
 }

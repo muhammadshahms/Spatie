@@ -29,6 +29,9 @@
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Roles</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Image</th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Edit</span>
                                             </th>
@@ -53,6 +56,11 @@
                                                             class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
                                                             {{ implode(' ', $user->roles->pluck('name')->toArray()) }}
                                                         </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <img src="{{ asset('storage/images/'.$user->image) }}" style="height: 50px;width:100px;">
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="flex justify-end">

@@ -21,7 +21,7 @@
                                 @enderror
                             </div>
                             <div class="sm:col-span-6 pt-5">
-                                <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Update</button>
+                                <button type="submit"  id="updateButton" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Update</button>
                             </div>
                         </form>
                     </div>

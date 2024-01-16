@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('auth.register',compact('roles'));
+        return view('auth.register', compact('roles'));
     }
 
     /**
@@ -42,21 +42,27 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'exists:roles,name'],
+            'image' => ['required'],
         ]);
+        // Assuming $request->image is the uploaded file
+        $fileName = time(); // You don't need to append the extension manually
+
+        // Use storeAs to store the file with the specified name
+        $request->image->storeAs('public/images', $fileName);
+
+        // If you need the file name with the extension after storing, you can retrieve it from the stored file
+        $storedFileName = $request->image->hashName(); // This includes the timestamp and extension
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            
+            'image' => $fileName
+
         ]);
         $user->assignRole($request->input('role'));
-        // dd($user);
         event(new Registered($user));
-        
-
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

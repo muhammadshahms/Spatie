@@ -6,15 +6,15 @@
                     <div class="mb-4 text-sm">
                         {{ Breadcrumbs::render('roles', $user) }}
                         <div class="p-2 mt-6 bg-slate-100 shadow-sm sm:rounded-lg">
-                            <form class="flex flex-col gap-2" action="{{ route('admin.users.updateDetails', $user->id) }}"
-                                method="POST">
+                            <form id="updateForm" class="flex flex-col gap-2"
+                                action="{{ route('admin.users.updateDetails', $user->id) }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <input type="text" class="border border-gray-300 rounded-md" name="name"
                                     value="{{ $user->name }}">
                                 <input type="text" class="border border-gray-300 rounded-md mt-2" name="email"
                                     value="{{ $user->email }}">
-                                <button type="submit"
+                                <button type="submit" id="updateButton"
                                     class="mt-2 px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Edit</button>
                             </form>
 
@@ -105,4 +105,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle the button click
+            document.getElementById('updateButton').addEventListener('click', function () {
+                // Get form data
+                var formData = new FormData(document.getElementById('updateForm'));
+    
+                // Send AJAX request with Axios
+                axios.post('/update-details/' + {{ $user->id }}, formData)
+                    .then(function (response) {
+                        console.log(response.data); // Log the response (optional)
+    
+                        // Assuming the response contains a success message
+                        if (response.data.message === 'User Updated successfully') {
+                            // Redirect to the same page
+                            window.location.reload();
+                        } else {
+                            // Handle error
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error(error.response.data); // Log the error (optional)
+                        // Handle error, if needed
+                    });
+            });
+        });
+    </script>
+    
+    
+
 </x-admin-layout>

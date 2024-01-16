@@ -9,7 +9,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
@@ -46,18 +46,22 @@
                     name="password_confirmation" required />
             </div>
 
-                        <!---Role---->
+            <!---Role---->
+            <div class="mt-4">
+                <x-label for="role" :value="__('Role')" />
+                <select id="role"
+                    class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    name="role" id="role">
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-                        <div class="mt-4">
-                            <x-label for="role" :value="__('Role')" />
-                            <select id="role"
-                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                name="role" id="role">
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+            <!-- Image -->
+            <div class="mt-4">
+                <x-input type="file" name="image" id="image" :value="__('Image')" />
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
