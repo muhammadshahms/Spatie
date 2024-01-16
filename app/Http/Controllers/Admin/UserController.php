@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -118,7 +119,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->update($request->all());
         event(new UserRegistration($request->name));
-        return to_route('admin.users.index');
+        return Redirect::back();
         // ->with('message', 'User Updated successfully');
     }
 }
