@@ -26,7 +26,7 @@ Breadcrumbs::for('create', function (BreadcrumbTrail $trail): void {
 
 // users>roles
 Breadcrumbs::for('roles', function (BreadcrumbTrail $trail, User $user): void {
-    $trail->parent('users', $user);
+    $trail->parent('users');
     $trail->push($user->name, route('admin.users.roles', $user));
 });
 

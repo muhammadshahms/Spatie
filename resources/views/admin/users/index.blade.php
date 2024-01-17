@@ -58,36 +58,44 @@
                                                         </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <img src="{{ asset('storage/images/'.$user->image) }}" style="height: 50px;width:100px;">
+                                                    <div class="flex">
+                                                        <img src="{{ asset('images/' . $user->image) }}"
+                                                            class="object-cover rounded-full h-16 w-14">
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="flex justify-end">
                                                         <div class="flex space-x-2">
                                                             <x-modal>
-                                                                <div>
-                                                                    <div>
-                                                                        <label for="">name: </label>
-                                                                        <input type="text"
-                                                                            value="{{ $user->name }}" readonly>
-
+                                                                <div
+                                                                    class="mb-4 border border-gray-300 rounded-md shadow p-4">
+                                                                    <div class="flex items-center">
+                                                                        <img src="{{ asset('images/' . $user->image) }}"
+                                                                            class="rounded-full h-16 w-14 object-cover">
                                                                     </div>
-                                                                    <div>
-                                                                        <label for="">email: </label>
+
+                                                                    <div class="mb-4">
+                                                                        <label for="">Name: </label>
                                                                         <input type="text"
+                                                                            class="border border-gray-300 rounded-md w-full px-2 py-1"
+                                                                            value="{{ $user->name }}" readonly>
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label for="">Email: </label>
+                                                                        <input type="text"
+                                                                            class="border border-gray-300 rounded-md w-full px-2 py-1"
                                                                             value="{{ $user->email }}" readonly>
                                                                     </div>
-                                                                    <div>
-                                                                        <label for="">roles: </label>
+                                                                    <div class="mb-4">
+                                                                        <label for="">Roles: </label>
                                                                         <input type="text"
-                                                                            value="{{ $user->roles->pluck('name')->implode(' ') }}"
+                                                                            class="border border-gray-300 rounded-md w-full px-2 py-1"
+                                                                            value="{{ $user->roles->pluck('name')->implode(', ') }}"
                                                                             readonly>
-
                                                                     </div>
+
                                                                 </div>
                                                             </x-modal>
-
                                                             <a href="{{ route('admin.users.show', $user->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">Edit</a>
 

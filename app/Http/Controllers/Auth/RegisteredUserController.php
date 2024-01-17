@@ -35,34 +35,36 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        // $roles = Role::all();
-        // $u=$roles->pluck('name');
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'exists:roles,name'],
-            'image' => ['required'],
+            'role' => 'required|exists:roles,name',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        // Assuming $request->image is the uploaded file
-        $fileName = time(); // You don't need to append the extension manually
 
-        // Use storeAs to store the file with the specified name
-        $request->image->storeAs('public/images', $fileName);
+        // Move the image to the public/images directory
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
 
-        // If you need the file name with the extension after storing, you can retrieve it from the stored file
-        $storedFileName = $request->image->hashName(); // This includes the timestamp and extension
-
+        // Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $fileName
-
+            'image' => $imageName,
         ]);
+
+        // Assign role to the user
         $user->assignRole($request->input('role'));
+
+        // Trigger the Registered event
         event(new Registered($user));
+
+        // Log in the user
         Auth::login($user);
+
+        // Redirect to the home page
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -59,9 +59,21 @@
             </div>
 
             <!-- Image -->
-            <div class="mt-4">
-                <x-input type="file" name="image" id="image" :value="__('Image')" />
+            <div class="mt-4 flex justify-start content-center items-center gap-4">
+                <img class="h-20 w-20 object-cover rounded-full"
+                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
+                    alt="Current profile photo" />
+       
+            <label class="mt-2">
+                <span class="sr-only">Choose profile photo</span>
+                <input type="file" class="hidden">
+                <div class="inline-block rounded-md border border-gray-300 px-6 py-2 text-sm font-medium cursor-pointer ">
+                    <span>Choose photo</span>
+                    <input type="file" name="image" hidden>
+                </div>
+            </label>
             </div>
+            
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
